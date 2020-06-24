@@ -1,27 +1,51 @@
 <?php
 
-class Stopwatch {
+class Stopwatch  {
     private $startTime;
     private $endTime;
 
-    function __construct($startTime,$endTime)
+    function __construct()
     {
-        $this->startTime=$startTime;
-        $this->endTime=$endTime;
-    }
 
+    }
     function get_startTime(){
-        return $this->startTime;
+        return round($this->startTime);
     }
     function get_endTime(){
-        return $this->endTime;
+        return round($this->endTime);
     }
 
-    function startTime(){
-        return date("h:i:s");
-    }
     function start() {
-        return $this->startTime;
+         $this->startTime = microtime(true);
     }
+    function stop(){
+          $this->endTime = microtime(true);
+    }
+    function getElapsedTime() {
+        return $this->endTime - $this->startTime;
+    }
+
+
 }
+
+$stopwatch = new Stopwatch();
+
+$stopwatch->start();
+echo "StartTime: ".$stopwatch->get_startTime();
+echo '<br>';
+for ($i = 0; $i < 100000; $i++) {
+    echo "&nbsp";
+}
+echo '<br>';
+$stopwatch->stop();
+echo "Endtime: ".$stopwatch->get_endTime();
+echo '<br>';
+echo $stopwatch->getElapsedTime();
+//echo "<br/>";
+
+//echo "<br/>";
+// $stopwatch->stop();
+// echo $stopwatch->get_endTime();
+//echo "<br/>";
+//echo $stopwatch->getElapsedTime();
 
